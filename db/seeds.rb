@@ -1,6 +1,13 @@
-files_path = "import_files/*.txt" # Update with the actual path to your text files
+files_path = "db/import_files/done/*.txt"
 
 Dir.glob(files_path) do |file_path|
+  FileUtils.mv(file_path, "db/import_files/")
+end
+
+files_path = "db/import_files/*.txt" # Update with the actual path to your text files
+
+Dir.glob(files_path) do |file_path|
+  puts file_path
   current_book = Book.create!(title: File.basename(file_path, ".txt"))
 
   current_chapter = nil
@@ -37,7 +44,7 @@ Dir.glob(files_path) do |file_path|
       elsif line.strip.empty?
         current_paragraph_number += 1
       else
-        text = line.strip
+        text = line.strip.gsub('##','')
 
         TextItem.create!(
           text_number: current_text_number,
@@ -51,7 +58,7 @@ Dir.glob(files_path) do |file_path|
     end
   end
 
-  FileUtils.mv(file_path, "path/to/your/import_books/done/") # Move processed file to the "done" folder
+  FileUtils.mv(file_path, "db/import_files/done/") # Move processed file to the "done" folder
 end
 
 puts "Text parsing and database population completed!"

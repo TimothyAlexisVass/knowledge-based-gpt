@@ -7,6 +7,10 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore import_files
+/db/import_files/*.txt
+/db/import_files/done/*.txt
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
