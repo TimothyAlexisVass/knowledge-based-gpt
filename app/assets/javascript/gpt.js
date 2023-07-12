@@ -1,6 +1,6 @@
 async function getFromGpt(systemMessage, userMessage) {
-  console.log(systemMessage);
-  console.log(userMessage);
+  console.log("userMessage:", userMessage);
+
   const response = await fetch('/gpt', {
     method: 'POST',
     headers: {
@@ -16,11 +16,15 @@ async function getFromGpt(systemMessage, userMessage) {
   if (response.ok) {
     const data = await response.json();
     if (data.message == null) {
-      return ["Failed to fetch suggestions"];
+      return ["Failed to fetch completion from GPT"];
     }
-    console.log(data.message);
+
     return data.message;
   } else {
-    throw new Error('Failed to fetch suggestions from GPT.');
+    throw new Error('Failed to fetch completion from GPT');
   }
 }
+
+String.prototype.heredoc = function () {
+  return this.replace(/^ +/gm, '');
+};

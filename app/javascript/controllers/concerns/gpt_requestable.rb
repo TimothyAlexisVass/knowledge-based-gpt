@@ -1,5 +1,5 @@
 module GptRequestable
-  def send_gpt_request(user_message, system_message="You are a helpful assistant", model="gpt-3.5-turbo", temperature=0.7)
+  def send_gpt_request(system_message, user_message, model="gpt-3.5-turbo", temperature=0.7)
     client = OpenAI::Client.new
 
     messages = []

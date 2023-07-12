@@ -8,8 +8,8 @@ class GptController < ApplicationController
     system_message = params[:system_message] if params.has_key?(:system_message)
     user_message = params[:user_message]
 
-    # response = send_gpt_request(system_message, user_message, model, temperature)
+    response = send_gpt_request(system_message, user_message, model, temperature)
 
-    render json: { message: "I don't know" }
+    render json: { message: response }
   end
 end
