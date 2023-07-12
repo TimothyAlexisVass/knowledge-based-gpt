@@ -17,9 +17,6 @@ gem "pg", "~> 1.1"
 # Use the ruby-openai gem for ChatGPT integration
 gem "ruby-openai", "~> 4.2"
 
-# Use dotenv-rails for ENV variables
-gem "dotenv-rails", "~> 2.8", ">= 2.8.1"
-
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -57,3 +54,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "neighbor", "~> 0.2.3"
