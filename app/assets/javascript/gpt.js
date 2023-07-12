@@ -1,4 +1,4 @@
-async function getSuggestionsFromGPT(systemMessage, userMessage) {
+async function getFromGpt(systemMessage, userMessage) {
   console.log(systemMessage);
   console.log(userMessage);
   const response = await fetch('/gpt', {
@@ -18,7 +18,8 @@ async function getSuggestionsFromGPT(systemMessage, userMessage) {
     if (data.message == null) {
       return ["Failed to fetch suggestions"];
     }
-    return JSON.parse(data.message);
+    console.log(data.message);
+    return data.message;
   } else {
     throw new Error('Failed to fetch suggestions from GPT.');
   }

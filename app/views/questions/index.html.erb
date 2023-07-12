@@ -1,0 +1,21 @@
+<%= javascript_include_tag "gpt" %>
+
+<div class="w-full">
+  <div class="h-48 w-full rounded mb-5 p-3 bg-gray-100">
+    <div id="answer"></div>
+  </div>
+
+  <%= form_tag(questions_path, class: 'w-full', id: 'question_form') do %>
+    <%= text_field_tag(:question, nil, class: 'w-full rounded', placeholder: 'Type your question') %>
+  <% end %>
+</div>
+
+<script>
+  document.getElementById('question_form').onsubmit = async function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    let question = document.getElementById('question').value;
+
+    let answer = await getFromGpt("You are a helpful assistant", question);
+    document.getElementById('answer').innerHTML = answer;
+  };
+</script>
