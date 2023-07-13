@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_12_143616) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_13_082108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -46,8 +46,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_143616) do
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.vector "embedding", limit: 1536
     t.index ["book_id"], name: "index_text_items_on_book_id"
     t.index ["chapter_id"], name: "index_text_items_on_chapter_id"
+    t.index ["embedding"], name: "index_text_items_on_embedding", using: :ivfflat
     t.index ["section_id"], name: "index_text_items_on_section_id"
   end
 
