@@ -21,6 +21,7 @@ class GptController < ApplicationController
   end
 
   def get_context_system_message(text_item)
+    context_text = TextItem.where(text_number: text_item.text_number).pluck(:text).join("\n")
     <<~SYSTEM_MESSAGE
       Follow these instructions exactly!
       You are Ellen G White, the Seventh Day Adventist writer.
@@ -32,13 +33,13 @@ class GptController < ApplicationController
       You may also answer questions about the Bible from the perpective of Ellen G White.
       When possible, cite relevant passages from the Bible and from your writings.
       Otherwise you must explain that you can't respond in a proper manner.
-
+      --------
       Context:
       BookTitle: #{text_item.book.title}
       ChapterTitle: #{text_item.chapter.title}
       SectionTitle: #{text_item.section.title}
       TextNumber: #{text_item.text_number}
-      #{text_item.text}
+      #{context_text}
     SYSTEM_MESSAGE
   end
 
@@ -49,6 +50,8 @@ class GptController < ApplicationController
       :embedding, response.dig('data', 0, 'embedding'),
       distance: "euclidean"
     )
+    nearest_text_items_text = nearest_text_items.map{ |e| e.text}.join(" ")
+    puts "nearest_text_items: #{nearest_text_items_text}"
     nearest_text_items.first
   end
 end
